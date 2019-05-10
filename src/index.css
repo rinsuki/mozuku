@@ -156,6 +156,7 @@ select {
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
+
 .post__body__bold {
   font-weight: bold;
 }
@@ -164,6 +165,7 @@ select {
   display: flex;
   overflow-x: hidden;
 }
+
 .post-image__img {
   margin: 4px 4px 0 0;
   width: 144px;
@@ -175,4 +177,59 @@ select {
   margin: 4px 0 0;
   color: #999;
   font-size: 0.8em;
+}
+
+.settings {
+  margin: 4px 4px 0;
+}
+
+.settingsItem__name {
+  vertical-align: middle;
+  margin: 0 0 4px;
+}
+
+.settingsItem__name__name {
+  font-size: 2em;
+  margin: 4px 4px 0;
+}
+
+.settingsItem__name__screenName {
+  color: #999;
+  font-size: 0.8em;
+}
+
+.settingsItem__title {
+  font-size: 1.5em;
+  margin: 4px 4px 0;
+}
+
+.nameForm {
+  position: relative;
+}
+
+.nameForm__textarea {
+  display: block;
+  width: 100%;
+  border-color: #dbdbdb;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, .1);
+  padding: 8px calc(120px + 24px + 24px) 8px 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.nameForm__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  width: 120px;
+  height: 24px;
+  background-color: var(--color-main);
+  color: #fff;
+  font-size: 0.8em;
+  transform: translateY(-50%);
 }

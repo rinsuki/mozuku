@@ -160,7 +160,7 @@ export default class Post implements Model {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       user: this.author.unpack(),
-      application: this.application.unpack(),
+      application: this.application.unpack()
     }
   }
 }

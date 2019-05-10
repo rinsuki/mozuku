@@ -19,11 +19,11 @@ class TimelineStore {
   private streamLastPingFromServer?: Date
 
   constructor() {
-    app.subscribeHiddenChange((hidden) => {
+    app.subscribeHiddenChange(hidden => {
       if (!hidden) {
         // reset counter
-        this.unreadCount    = 0
-        this.isUnreadCountEnabled  = false
+        this.unreadCount = 0
+        this.isUnreadCountEnabled = false
         return
       }
       this.isUnreadCountEnabled = true
@@ -204,22 +204,23 @@ class TimelineStore {
 const timeline = new TimelineStore()
 export default timeline
 
-export const useTimeline = () => useEffect(() => {
-  let openTimerID: number
-  const open = async () => {
-    try {
-      await timeline.fetch()
-      await timeline.openStream()
-    } catch (e) {
-      console.error(e)
-      window.setTimeout(open, 500)
+export const useTimeline = () =>
+  useEffect(() => {
+    let openTimerID: number
+    const open = async () => {
+      try {
+        await timeline.fetch()
+        await timeline.openStream()
+      } catch (e) {
+        console.error(e)
+        window.setTimeout(open, 500)
+      }
     }
-  }
-  open()
-  return () => {
-    document.title = app.defaultTitle
-    if (openTimerID) window.clearTimeout(openTimerID)
-    timeline.closeStream()
-    timeline.reset()
-  }
-}, [])
+    open()
+    return () => {
+      document.title = app.defaultTitle
+      if (openTimerID) window.clearTimeout(openTimerID)
+      timeline.closeStream()
+      timeline.reset()
+    }
+  }, [])
