@@ -67,7 +67,11 @@ export const markImageURLmiddleware = (p: PostBodyPart): PostBodyPart[] => {
     return [p]
   const url = new URL(p.payload)
   // not whitelisted domain
-  if (!['delta.contents.stream', 'i.gyazo.com'].includes(url.hostname))
+  if (
+    !['delta.contents.stream', 'i.gyazo.com', 'i.imgur.com'].includes(
+      url.hostname
+    )
+  )
     return [p]
   return [
     {
