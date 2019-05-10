@@ -55,6 +55,6 @@ export default ({ post }: { post: Post }) => (
         </React.Fragment>
       ))}
     </div>
-    <div className="post__meta">This post from {post.application.name}</div>
+    <div className="post__meta">via {post.application.name}</div>
   </div>
 )
