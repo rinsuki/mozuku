@@ -13,6 +13,13 @@ const repository_url = () => {
     return 'unknown'
   }
 }
+const commit = () => {
+  if (process.env.COMMIT_REF) {
+    return `${process.env.BRANCH}@${process.env.COMMIT_REF}`
+  } else {
+    return 'unknown'
+  }
+}
 
 export default {
   app: {
@@ -21,7 +28,6 @@ export default {
   },
   oauth: process.env.OAUTH_URL,
   api: process.env.API_URL,
-  repository_url: repository_url,
-  branch: process.env.BRANCH || 'unknown',
-  commit: process.env.COMMIT_REF || 'unknown'
+  repository_url: repository_url(),
+  commit: commit()
 }

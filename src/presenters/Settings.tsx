@@ -33,7 +33,6 @@ export default ({
       mozuku info
       <ul>
         <li>repository: {Config.repository_url}</li>
-        <li>branch: {Config.branch}</li>
         <li>commit: {Config.commit}</li>
       </ul>
     </div>
