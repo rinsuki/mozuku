@@ -26,7 +26,7 @@ export default class Account implements Model {
   constructor(u: any) {
     const user = this.validate(u)
     this.id = user.id
-    this.name = user.name
+    this.name = user.name.trim().length ? user.name : `@${user.screenName}`
     this.screenName = user.screenName
     this.postsCount = user.postsCount
     this.createdAt = moment(user.createdAt)
