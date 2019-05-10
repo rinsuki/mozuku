@@ -1,8 +1,9 @@
 import * as React from 'react'
-const { useState, useRef } = React
+const { useState } = React
 
 import seaClient from '../../util/seaClient'
 
+import appStore from '../../stores/app'
 import NameForm from '../../presenters/Settings/NameForm'
 
 export default ({ name }: { name: string }) => {
@@ -15,7 +16,7 @@ export default ({ name }: { name: string }) => {
       try {
         await seaClient.patch('/v1/account', { name: nameDraft })
         setMessage(`Your new name: ${nameDraft}`)
-        // TODO: Update Name (No Rel)
+        appStore.updateMyAccount()
       } catch (e) {
         // TODO: Add error reporting
         console.error(e)

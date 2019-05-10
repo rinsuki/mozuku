@@ -97,6 +97,13 @@ class SApp {
     }
   }
 
+  async updateMyAccount() {
+    const me = await seaClient
+      .get('/v1/account')
+      .then((d: any) => new Account(d))
+    this.accounts.set(this.meId, me)
+  }
+
   async applyToPosts(ps: any[]) {
     // Make bold me
     const boldMyScreenNameMiddleware = (a: Account) => (
