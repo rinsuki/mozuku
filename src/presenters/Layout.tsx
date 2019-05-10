@@ -38,10 +38,15 @@ export default ({
             )}
           </div>
           <div>
-            <Link to={{ pathname: '/settings' }}>
+            <Link
+              className="mozuku-header__link"
+              to={{ pathname: '/settings' }}
+            >
               <button>⚙</button>
-            </Link>{' '}
-            <button onClick={onClickLogout}>👋</button>
+            </Link>
+            <button className="mozuku-header__link" onClick={onClickLogout}>
+              👋
+            </button>
           </div>
         </div>
       </div>

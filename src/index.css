@@ -74,6 +74,10 @@ select {
   background: #fafafa;
 }
 
+.mozuku-header__link {
+  margin: 0 12px 0;
+}
+
 .mozuku-container {
   width: 100%;
   max-width: 720px;
