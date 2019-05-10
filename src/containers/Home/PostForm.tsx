@@ -50,7 +50,6 @@ export default () => {
           setDraft(`${draft} ${resp.data.url}`)
         })
     }
-    event.preventDefault()
     Array.from(event.clipboardData.files)
       .filter(file => file.type.split('/')[0] == 'image')
       .forEach(file => {
