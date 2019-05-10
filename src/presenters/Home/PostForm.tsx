@@ -6,9 +6,14 @@ type T = {
   submitDraft: () => void
   setDraft: (t: string) => void
   draft: string
+  submitGyazo: (e: React.ClipboardEvent) => void
+  images: string[]
 }
 export default forwardRef<HTMLTextAreaElement, T>(
-  ({ draftDisabled, submitDraft, setDraft, draft }, ref) => {
+  (
+    { draftDisabled, submitDraft, setDraft, draft, submitGyazo, images },
+    ref
+  ) => {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       submitDraft()
@@ -21,26 +26,32 @@ export default forwardRef<HTMLTextAreaElement, T>(
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setDraft(event.target.value)
     }
+    const onPaste = (event: React.ClipboardEvent) => {
+      submitGyazo(event)
+    }
 
     return (
-      <form className="postForm" onSubmit={onSubmit}>
-        <textarea
-          className="postForm__textarea"
-          disabled={draftDisabled}
-          onKeyDown={onKeyDown}
-          onChange={onChange}
-          ref={ref}
-          placeholder="What's up Otaku?"
-          value={draft}
-        />
-        <button
-          className="postForm__button"
-          type="submit"
-          disabled={draftDisabled}
-        >
-          Send to Sea
-        </button>
-      </form>
+      <>
+        <form className="postForm" onSubmit={onSubmit}>
+          <textarea
+            className="postForm__textarea"
+            disabled={draftDisabled}
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+            onPaste={onPaste}
+            ref={ref}
+            placeholder="What's up Otaku?"
+            value={draft}
+          />
+          <button
+            className="postForm__button"
+            type="submit"
+            disabled={draftDisabled}
+          >
+            Send to Sea
+          </button>
+        </form>
+      </>
     )
   }
 )

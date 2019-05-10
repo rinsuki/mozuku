@@ -13,6 +13,7 @@ export default {
   },
   oauth: process.env.OAUTH_URL,
   api: process.env.API_URL,
+  gyazo_client_id: process.env.GYAZO_CLIENT_ID,
   repository_url: process.env.REPOSITORY_URL
     ? process.env.REPOSITORY_URL.split('@')[1]
     : null,

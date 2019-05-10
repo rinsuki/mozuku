@@ -59,6 +59,7 @@ export default ({
           )}
         </li>
         <li>Commit: {Config.commit || 'unknown'}</li>
+        <li>Gyazo: {Config.gyazo_client_id ? 'ready!' : 'not configured'}</li>
       </ul>
     </div>
   )
