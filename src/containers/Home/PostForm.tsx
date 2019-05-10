@@ -40,6 +40,7 @@ export default () => {
       return null
     }
     if (event.clipboardData.getData('Text').includes('https://gyazo.com')) {
+      event.preventDefault()
       axios
         .get('https://gyazo.now.sh/info', {
           params: {
