@@ -168,12 +168,14 @@ select {
 
 .post-image__img {
   max-height: 256px;
+  max-width: 100%;
   overflow: hidden;
   object-fit: cover;
 }
 
 .post-image__img img {
   max-height: 256px;
+  max-width: 100%;
   -moz-transition: -moz-transform 0.1s linear;
   -webkit-transition: -webkit-transform 0.1s linear;
   -o-transition: -o-transform 0.1s linear;
