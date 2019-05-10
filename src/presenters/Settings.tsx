@@ -32,8 +32,33 @@ export default ({
       <div className="settingsItem__title">About</div>
       mozuku info
       <ul>
-        <li>repository: {Config.repository_url}</li>
-        <li>commit: {Config.commit}</li>
+        <li>
+          API:{' '}
+          <a href={Config.api} target="_blank" rel="noreferrer">
+            {Config.api}
+          </a>
+        </li>
+        <li>
+          OAuth:{' '}
+          <a href={Config.oauth} target="_blank" rel="noreferrer">
+            {Config.oauth}
+          </a>
+        </li>
+        <li>
+          Repository:{' '}
+          {Config.repository_url ? (
+            <a
+              href={`https://${Config.repository_url}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {Config.repository_url}
+            </a>
+          ) : (
+            'unknown'
+          )}
+        </li>
+        <li>Commit: {Config.commit || 'unknown'}</li>
       </ul>
     </div>
   )

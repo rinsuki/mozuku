@@ -24,7 +24,9 @@ export default ({ me }: { me?: Account }) => {
           </h1>
           <div>
             {me ? (
-              <Link to={{ pathname: '/me' }}>@{me.screenName}</Link>
+              <>
+                {me.name} (@{me.screenName})
+              </>
             ) : (
               <span>
                 <i>[誰?]</i>
