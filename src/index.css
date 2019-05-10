@@ -167,10 +167,26 @@ select {
 }
 
 .post-image__img {
-  margin: 4px 4px 0 0;
-  width: 144px;
-  height: 144px;
+  max-height: 256px;
+  overflow: hidden;
   object-fit: cover;
+}
+
+.post-image__img img {
+  max-height: 256px;
+  -moz-transition: -moz-transform 0.1s linear;
+  -webkit-transition: -webkit-transform 0.1s linear;
+  -o-transition: -o-transform 0.1s linear;
+  -ms-transition: -ms-transform 0.1s linear;
+  transition: transform 0.1s linear;
+}
+
+.post-image__img img:hover {
+  -webkit-transform: scale(2);
+  -moz-transform: scale(2);
+  -o-transform: scale(2);
+  -ms-transform: scale(2);
+  transform: scale(2);
 }
 
 .post__meta {

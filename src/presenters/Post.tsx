@@ -49,7 +49,9 @@ export default ({ post }: { post: Post }) => (
         <React.Fragment key={i}>
           {p.type === BODYPART_TYPE_LINK_IMAGE && (
             <a href={p.payload} target="_blank">
-              <img className="post-image__img" src={p.payload} />
+              <div className="post-image__img">
+                <img src={p.payload} />
+              </div>
             </a>
           )}
         </React.Fragment>
