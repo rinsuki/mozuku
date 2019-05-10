@@ -74,10 +74,6 @@ select {
   background: #fafafa;
 }
 
-.mozuku-header__link {
-  margin: 0 12px 0;
-}
-
 .mozuku-container {
   width: 100%;
   max-width: 720px;
@@ -185,6 +181,7 @@ select {
 
 .settings {
   margin: 4px 4px 0;
+  padding: 1em;
 }
 
 .settingsItem__name {
@@ -199,12 +196,25 @@ select {
 
 .settingsItem__name__screenName {
   color: #999;
-  font-size: 0.8em;
+  font-size: 1.5em;
 }
 
 .settingsItem__title {
   font-size: 1.5em;
-  margin: 4px 4px 0;
+  margin: 12px 0 4px;
+}
+
+.settingsItem__subtitle {
+  font-size: 1.3em;
+  margin: 8px 0 4px;
+}
+
+.settingsItem__logout {
+  width: 120px;
+  height: 24px;
+  background-color: var(--color-main);
+  color: #fff;
+  font-size: 0.8em;
 }
 
 .nameForm {

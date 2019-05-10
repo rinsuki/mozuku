@@ -12,13 +12,7 @@ import NotFound from './NotFound'
 
 import logo from '../static/logo.png'
 
-export default ({
-  me,
-  onClickLogout
-}: {
-  me?: Account
-  onClickLogout: (e: React.MouseEvent<HTMLButtonElement>) => void
-}) => {
+export default ({ me }: { me?: Account }) => {
   return (
     <div className="mozuku-layout">
       <div className="mozuku-header-wrapper">
@@ -38,15 +32,9 @@ export default ({
             )}
           </div>
           <div>
-            <Link
-              className="mozuku-header__link"
-              to={{ pathname: '/settings' }}
-            >
+            <Link to={{ pathname: '/settings' }}>
               <button>⚙</button>
             </Link>
-            <button className="mozuku-header__link" onClick={onClickLogout}>
-              👋
-            </button>
           </div>
         </div>
       </div>

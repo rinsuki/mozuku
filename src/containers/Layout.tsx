@@ -13,13 +13,7 @@ export default () => {
     if (!appStore.initialized) return <>Loading...</>
     return (
       <>
-        <Layout
-          me={appStore.me}
-          onClickLogout={e => {
-            e.preventDefault()
-            appStore.logout()
-          }}
-        />
+        <Layout me={appStore.me} />
       </>
     )
   })
