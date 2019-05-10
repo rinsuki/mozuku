@@ -29,7 +29,7 @@ export default ({ post }: { post: Post }) => (
           case BODYPART_TYPE_LINK:
           case BODYPART_TYPE_LINK_IMAGE:
             return (
-              <a key={i} href={p.payload} target="_blank">
+              <a key={i} href={p.payload} target="_blank" rel="noreferrer">
                 {decodeURI(p.payload)}
               </a>
             )
@@ -48,7 +48,7 @@ export default ({ post }: { post: Post }) => (
       {post.body.parts.map((p, i) => (
         <React.Fragment key={i}>
           {p.type === BODYPART_TYPE_LINK_IMAGE && (
-            <a href={p.payload} target="_blank">
+            <a href={p.payload} target="_blank" rel="noreferrer">
               <div className="post-image__img">
                 <img src={p.payload} />
               </div>
