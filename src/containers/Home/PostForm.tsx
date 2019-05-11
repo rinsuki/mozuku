@@ -8,6 +8,7 @@ import { useShortcut } from '../../stores/app'
 import axios from 'axios'
 import Config from '../../config'
 import PostForm from '../../presenters/Home/PostForm'
+import { setServers } from 'dns'
 
 export default () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -72,10 +73,10 @@ export default () => {
                 }
               )
               .then(resp => {
-                console.log(resp.data)
+                setDraft(`${draft} ${resp.data.data.link}`)
                 localStorage.setItem(
                   `imgur_${resp.data.data.id}`,
-                  resp.data.data
+                  JSON.stringify(resp.data.data)
                 )
               })
           }
