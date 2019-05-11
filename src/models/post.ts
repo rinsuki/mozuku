@@ -35,7 +35,7 @@ export const parseURLmiddleware = (p: PostBodyPart): PostBodyPart[] => {
   const r = p.payload.split(/(https?:\/\/[^\s]+)/gi)
   return r.map(
     (r): PostBodyPart => {
-      if (r.startsWith('http')) {
+      if (r.startsWith('http://') || r.startsWith('https://')) {
         return {
           type: BODYPART_TYPE_LINK,
           payload: r
