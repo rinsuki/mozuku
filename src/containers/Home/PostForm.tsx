@@ -56,25 +56,32 @@ export default () => {
       .forEach(file => {
         const reader = new FileReader()
         reader.onloadend = () => {
-          const binary = reader.result
-          axios
-            .post(
-              '/imgur/upload',
-              {
-                image: binary
-              },
-              {
-                headers: {
-                  Authorization: `Client-ID ${Config.imgur_client_id}`
+          if (reader.result) {
+            const binary = reader.result.toString().split(',')[1]
+            axios
+              .post(
+                '/imgur/upload',
+                querystring.stringify({
+                  image: binary,
+                  type: 'base64'
+                }),
+                {
+                  headers: {
+                    Authorization: `Client-ID ${Config.imgur_client_id}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
                 }
-              }
-            )
-            .then(resp => {
-              console.log(resp.data)
-              localStorage.setItem(`imgur_${resp.data.data.id}`, resp.data.data)
-            })
+              )
+              .then(resp => {
+                console.log(resp.data)
+                localStorage.setItem(
+                  `imgur_${resp.data.data.id}`,
+                  resp.data.data
+                )
+              })
+          }
+          reader.readAsDataURL(file)
         }
-        reader.readAsDataURL(file)
       })
   }
 
