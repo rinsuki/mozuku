@@ -14,7 +14,18 @@ export default ({ post }: { post: Post }) => (
   <div className="post">
     <div className="post__head post-head">
       <div className="post-head__name">
-        <span className="post-head__name__name">{post.author.name}</span>
+        <span className="post-head__name__name">
+          {[].filter
+            .call(
+              post.author.name.trim(),
+              (c: string) => c.charCodeAt(0) !== 8203
+            )
+            .join('')
+            .replace(/[\u200B-\u200D\uFEFF]/g, '')
+            .replace(/[\uD800-\uDFFF]{2}/g, '').length
+            ? post.author.name
+            : `@${post.author.screenName}`}
+        </span>
         <span className="post-head__name__screenName">
           @{post.author.screenName}
         </span>
