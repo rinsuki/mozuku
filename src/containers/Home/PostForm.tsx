@@ -25,6 +25,9 @@ export default () => {
   const [images, setImages] = useState([])
   const submitDraft = async () => {
     setDraftDisabled(true)
+    images.forEach(image => {
+      setDraft(`${draft} ${image}`)
+    })
     if (draft.trim().length > 0) {
       try {
         await seaClient.post('/v1/posts', { text: draft })
