@@ -56,13 +56,13 @@ export default () => {
       .forEach(file => {
         const reader = new FileReader()
         reader.onloadend = () => {
-          if (reader.result) {
-            const binary = reader.result.toString().split(',')[1]
+          if (reader.result != null) {
+            const binary = reader.result
             axios
               .post(
                 '/imgur/upload',
                 querystring.stringify({
-                  image: binary,
+                  image: binary.toString().split(',')[1],
                   type: 'base64'
                 }),
                 {
