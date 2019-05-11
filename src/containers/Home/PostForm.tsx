@@ -57,12 +57,11 @@ export default () => {
         const reader = new FileReader()
         reader.onloadend = () => {
           if (reader.result != null) {
-            const binary = reader.result
             axios
               .post(
                 '/imgur/upload',
                 querystring.stringify({
-                  image: binary.toString().split(',')[1],
+                  image: reader.result.toString().split(',')[1],
                   type: 'base64'
                 }),
                 {
@@ -80,8 +79,8 @@ export default () => {
                 )
               })
           }
-          reader.readAsDataURL(file)
         }
+        reader.readAsDataURL(file)
       })
   }
 
