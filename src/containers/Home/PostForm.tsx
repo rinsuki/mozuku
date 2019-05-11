@@ -28,7 +28,7 @@ export default () => {
     images.forEach(image => {
       setDraft(`${draft} ${image}`)
     })
-    if (draft.trim().length > 0) {
+    if (draft.trim().length > 0 || images.length >= 1) {
       try {
         await seaClient.post('/v1/posts', { text: draft })
         setDraft('')
@@ -59,7 +59,6 @@ export default () => {
           )
           .then(resp => {
             setImages([...images, resp.data.data.link])
-            setDraft(`${draft} ${resp.data.data.link}`)
             localStorage.setItem(
               `imgur_${resp.data.data.id}`,
               JSON.stringify(resp.data.data)
