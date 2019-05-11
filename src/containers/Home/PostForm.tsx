@@ -22,7 +22,7 @@ export default () => {
 
   const [draft, setDraft] = useState('')
   const [draftDisabled, setDraftDisabled] = useState(false)
-  const [images, addImage] = useState([])
+  const [images, setImages] = useState([])
   const submitDraft = async () => {
     setDraftDisabled(true)
     if (draft.trim().length > 0) {
@@ -36,7 +36,37 @@ export default () => {
     }
     setDraftDisabled(false)
   }
-  const submitGyazo = async (event: React.ClipboardEvent) => {
+  const fileUploader = (file: File) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      if (reader.result != null) {
+        axios
+          .post(
+            '/imgur/upload',
+            querystring.stringify({
+              image: reader.result.toString().split(',')[1],
+              type: 'base64'
+            }),
+            {
+              headers: {
+                Authorization: `Client-ID ${Config.imgur_client_id}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }
+          )
+          .then(resp => {
+            setImages([...images, resp.data.data.link])
+            setDraft(`${draft} ${resp.data.data.link}`)
+            localStorage.setItem(
+              `imgur_${resp.data.data.id}`,
+              JSON.stringify(resp.data.data)
+            )
+          })
+      }
+    }
+    reader.readAsDataURL(file)
+  }
+  const submitAlbum = async (event: React.ClipboardEvent) => {
     if (!Config.imgur_client_id) {
       return null
     }
@@ -55,34 +85,15 @@ export default () => {
     Array.from(event.clipboardData.files)
       .filter(file => file.type.split('/')[0] == 'image')
       .forEach(file => {
-        const reader = new FileReader()
-        reader.onloadend = () => {
-          if (reader.result != null) {
-            axios
-              .post(
-                '/imgur/upload',
-                querystring.stringify({
-                  image: reader.result.toString().split(',')[1],
-                  type: 'base64'
-                }),
-                {
-                  headers: {
-                    Authorization: `Client-ID ${Config.imgur_client_id}`,
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                  }
-                }
-              )
-              .then(resp => {
-                setDraft(`${draft} ${resp.data.data.link}`)
-                localStorage.setItem(
-                  `imgur_${resp.data.data.id}`,
-                  JSON.stringify(resp.data.data)
-                )
-              })
-          }
-        }
-        reader.readAsDataURL(file)
+        fileUploader(file)
       })
+  }
+  const submitAlbumFromFile = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files != null) {
+      Array.from(event.target.files).forEach(file => fileUploader(file))
+    }
   }
 
   return (
@@ -92,7 +103,8 @@ export default () => {
       setDraft={setDraft}
       draftDisabled={draftDisabled}
       submitDraft={submitDraft}
-      submitGyazo={submitGyazo}
+      submitAlbum={submitAlbum}
+      submitAlbumFromFile={submitAlbumFromFile}
       images={images}
     />
   )

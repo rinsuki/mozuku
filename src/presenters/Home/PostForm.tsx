@@ -6,12 +6,21 @@ type T = {
   submitDraft: () => void
   setDraft: (t: string) => void
   draft: string
-  submitGyazo: (e: React.ClipboardEvent) => void
+  submitAlbum: (e: React.ClipboardEvent) => void
+  submitAlbumFromFile: (e: React.ChangeEvent<HTMLInputElement>) => void
   images: string[]
 }
 export default forwardRef<HTMLTextAreaElement, T>(
   (
-    { draftDisabled, submitDraft, setDraft, draft, submitGyazo, images },
+    {
+      draftDisabled,
+      submitDraft,
+      setDraft,
+      draft,
+      submitAlbum,
+      submitAlbumFromFile,
+      images
+    },
     ref
   ) => {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +36,11 @@ export default forwardRef<HTMLTextAreaElement, T>(
       setDraft(event.target.value)
     }
     const onPaste = (event: React.ClipboardEvent) => {
-      submitGyazo(event)
+      submitAlbum(event)
+    }
+    const onFileSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault()
+      submitAlbumFromFile(e)
     }
 
     return (
@@ -51,6 +64,28 @@ export default forwardRef<HTMLTextAreaElement, T>(
             Send to Sea
           </button>
         </form>
+        <div className="postForm__imagesarea">
+          <form>
+            <label
+              className="postForm__imagesarea__form__submit"
+              htmlFor="fileupload"
+            >
+              +
+              <input
+                type="file"
+                id="fileupload"
+                className="postForm__imagesarea__form__input"
+                onChange={onFileSubmit}
+              />
+            </label>
+          </form>
+
+          <div className="postForm__imagesarea_collection">
+            {images.map(image => (
+              <img key={image} src={image} />
+            ))}
+          </div>
+        </div>
       </>
     )
   }

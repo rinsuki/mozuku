@@ -96,7 +96,7 @@ select {
 .postForm__textarea {
   display: block;
   width: 100%;
-  height: 60px;
+  height: 80px;
   min-width: 60px;
   padding: 12px calc(120px + 24px + 24px) 12px 24px;
   -webkit-appearance: none;
@@ -112,6 +112,45 @@ select {
   top: 50%;
   right: 24px;
   width: 120px;
+  height: 36px;
+  background-color: var(--color-main);
+  color: #fff;
+  font-size: 0.8em;
+  transform: translateY(-50%);
+}
+
+.postForm__imagesarea {
+  position: relative;
+  height: 64px;
+  background-color: #dadada;
+}
+
+.postForm__imagesarea_collection {
+  margin: 0 0 0 64px;
+}
+
+.postForm__imagesarea_collection img {
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 14px 7px;
+  float: left;
+}
+
+.postForm__imagesarea__form__input {
+  display: none;
+}
+
+.postForm__imagesarea__form__submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  width: 36px;
   height: 36px;
   background-color: var(--color-main);
   color: #fff;
