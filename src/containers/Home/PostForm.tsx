@@ -36,7 +36,7 @@ export default () => {
     setDraftDisabled(false)
   }
   const submitGyazo = async (event: React.ClipboardEvent) => {
-    if (!Config.gyazo_client_id) {
+    if (!Config.imgur_client_id) {
       return null
     }
     if (event.clipboardData.getData('Text').includes('https://gyazo.com')) {
@@ -58,13 +58,20 @@ export default () => {
         reader.onloadend = () => {
           const binary = reader.result
           axios
-            .post('https://gyazo.now.sh/upload', {
-              client_id: Config.gyazo_client_id,
-              referer_url: window.location.origin,
-              image_url: binary
-            })
+            .post(
+              '/imgur/upload',
+              {
+                image: binary
+              },
+              {
+                headers: {
+                  Authorization: `Client-ID ${Config.imgur_client_id}`
+                }
+              }
+            )
             .then(resp => {
-              window.open(resp.data, '_blank', 'width=720,height=405')
+              console.log(resp.data)
+              localStorage.setItem(`imgur_${resp.data.data.id}`, resp.data.data)
             })
         }
         reader.readAsDataURL(file)
