@@ -1,6 +1,7 @@
 import * as React from 'react'
 const { useState, useRef } = React
 import querystring from 'querystring'
+const Ahdin = require('ahdin')
 
 import seaClient from '../../util/seaClient'
 import { useShortcut } from '../../stores/app'
@@ -44,30 +45,37 @@ export default () => {
     const reader = new FileReader()
     reader.onloadend = () => {
       if (reader.result != null) {
-        axios
-          .post(
-            '/imgur/upload',
-            querystring.stringify({
-              image: reader.result.toString().split(',')[1],
-              type: 'base64'
-            }),
-            {
-              headers: {
-                Authorization: `Client-ID ${Config.imgur_client_id}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
-              }
-            }
-          )
-          .then(resp => {
-            setImages([...images, resp.data.data.link])
-            localStorage.setItem(
-              `imgur_${resp.data.data.id}`,
-              JSON.stringify(resp.data.data)
-            )
-          })
+        const blob = new Blob([new Uint8Array(reader.result)])
+        Ahdin.compress(blob).then(comp => {
+          const creader = new FileReader()
+          creader.onloadend = () => {
+            axios
+              .post(
+                '/imgur/upload',
+                querystring.stringify({
+                  image: creader.result.toString().split(',')[1],
+                  type: 'base64'
+                }),
+                {
+                  headers: {
+                    Authorization: `Client-ID ${Config.imgur_client_id}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                }
+              )
+              .then(resp => {
+                setImages([...images, resp.data.data.link])
+                localStorage.setItem(
+                  `imgur_${resp.data.data.id}`,
+                  JSON.stringify(resp.data.data)
+                )
+              })
+          }
+          creader.readAsDataURL(comp)
+        })
       }
     }
-    reader.readAsDataURL(file)
+    reader.readAsArrayBuffer(file)
   }
   const submitAlbum = async (event: React.ClipboardEvent) => {
     if (!Config.imgur_client_id) {

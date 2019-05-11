@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "@types/moment-timezone": "^0.5.12",
+    "ahdin": "^1.1.0",
     "axios": "^0.18.0",
     "cafy": "^15.1.1",
     "mobx": "^5.9.4",
