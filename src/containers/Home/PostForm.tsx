@@ -32,6 +32,7 @@ export default () => {
       try {
         await seaClient.post('/v1/posts', { text: joinImages() })
         setDraft('')
+        setImages([])
       } catch (e) {
         // TODO: Add error reporting
         console.error(e)
