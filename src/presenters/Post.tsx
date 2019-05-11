@@ -56,25 +56,6 @@ export default ({ post }: { post: Post }) => (
               </div>
             </a>
           )}
-          {p.payload.startsWith('https://i.imgur.com') &&
-          localStorage.getItem(
-            `imgur_${p.payload.split('com/')[1].split('.')[0]}`
-          ) ? (
-            <button
-              onClick={axios
-                .delete(
-                  `/imgur/image/${p.payload.split('com/')[1].split('.')[0]}`,
-                  {
-                    headers: {
-                      Authorization: `Client-ID ${Config.imgur_client_id}`
-                    }
-                  }
-                )
-                .then(resp => console.log('deleted'))}
-            >
-              delete
-            </button>
-          ) : null}
         </React.Fragment>
       ))}
     </div>
