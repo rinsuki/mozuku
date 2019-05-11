@@ -23,14 +23,14 @@ export default () => {
   const [draft, setDraft] = useState('')
   const [draftDisabled, setDraftDisabled] = useState(false)
   const [images, setImages] = useState([])
+  const joinImages = () => {
+    return `${draft} ${images.join(' ')}`
+  }
   const submitDraft = async () => {
     setDraftDisabled(true)
-    images.forEach(image => {
-      setDraft(`${draft} ${image}`)
-    })
     if (draft.trim().length > 0 || images.length >= 1) {
       try {
-        await seaClient.post('/v1/posts', { text: draft })
+        await seaClient.post('/v1/posts', { text: joinImages() })
         setDraft('')
       } catch (e) {
         // TODO: Add error reporting
