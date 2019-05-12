@@ -66,14 +66,14 @@ export default forwardRef<HTMLTextAreaElement, T>(
             Send to Sea
           </button>
         </form>
-        <div className="postForm__imagesarea">
+        <div className="postForm__images-area">
           <form>
             <label
-              className="postForm__imagesarea__form__submit"
+              className="postForm__images-area__form__label"
               htmlFor="fileupload"
             >
               {isUploding ? (
-                <span className="postForm__imagesarea__form__submit__span">
+                <span className="postForm__images-area__form__label_loading">
                   🤔
                 </span>
               ) : (
@@ -82,13 +82,13 @@ export default forwardRef<HTMLTextAreaElement, T>(
               <input
                 type="file"
                 id="fileupload"
-                className="postForm__imagesarea__form__input"
+                className="postForm__images-area__form__input"
                 onChange={onFileSubmit}
               />
             </label>
           </form>
 
-          <div className="postForm__imagesarea_collection">
+          <div className="postForm__images-area__collection">
             {images.map(image => (
               <img key={image} src={image} />
             ))}

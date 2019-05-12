@@ -119,17 +119,17 @@ select {
   transform: translateY(-50%);
 }
 
-.postForm__imagesarea {
+.postForm__images-area {
   position: relative;
   height: 64px;
   background-color: #dadada;
 }
 
-.postForm__imagesarea_collection {
+.postForm__images-area__collection {
   margin: 0 0 0 64px;
 }
 
-.postForm__imagesarea_collection img {
+.postForm__images-area__collection img {
   display: flex;
   height: 36px;
   justify-content: center;
@@ -140,11 +140,11 @@ select {
   image-orientation: from-image;
 }
 
-.postForm__imagesarea__form__input {
+.postForm__images-area__form__input {
   display: none;
 }
 
-.postForm__imagesarea__form__submit {
+.postForm__images-area__form__label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,7 +159,7 @@ select {
   transform: translateY(-50%);
 }
 
-.postForm__imagesarea__form__submit__span {
+.postForm__images-area__form__label_loading {
   font-size: 1.5em;
   animation: spin 1.5s linear infinite;
 }
