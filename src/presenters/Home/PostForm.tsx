@@ -9,6 +9,7 @@ type T = {
   submitAlbum: (e: React.ClipboardEvent) => void
   submitAlbumFromFile: (e: React.ChangeEvent<HTMLInputElement>) => void
   images: string[]
+  isUploding: boolean
 }
 export default forwardRef<HTMLTextAreaElement, T>(
   (
@@ -19,7 +20,8 @@ export default forwardRef<HTMLTextAreaElement, T>(
       draft,
       submitAlbum,
       submitAlbumFromFile,
-      images
+      images,
+      isUploding
     },
     ref
   ) => {
@@ -70,7 +72,13 @@ export default forwardRef<HTMLTextAreaElement, T>(
               className="postForm__imagesarea__form__submit"
               htmlFor="fileupload"
             >
-              +
+              {isUploding ? (
+                <span className="postForm__imagesarea__form__submit__span">
+                  🤔
+                </span>
+              ) : (
+                '+'
+              )}
               <input
                 type="file"
                 id="fileupload"

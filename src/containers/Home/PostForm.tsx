@@ -24,6 +24,7 @@ export default () => {
   const [draft, setDraft] = useState('')
   const [draftDisabled, setDraftDisabled] = useState(false)
   const [images, setImages] = useState([])
+  const [isUploading, setIsUploading] = useState(false)
   const joinImages = () => {
     return `${draft} ${images.join(' ')}`
   }
@@ -42,6 +43,7 @@ export default () => {
     setDraftDisabled(false)
   }
   const fileUploader = (file: File) => {
+    setIsUploading(true)
     const reader = new FileReader()
     reader.onloadend = () => {
       if (reader.result != null) {
@@ -69,6 +71,11 @@ export default () => {
                   `imgur_${resp.data.data.id}`,
                   JSON.stringify(resp.data.data)
                 )
+                setIsUploading(false)
+              })
+              .catch(err => {
+                console.error(err)
+                setIsUploading(false)
               })
           }
           creader.readAsDataURL(comp)
@@ -117,6 +124,7 @@ export default () => {
       submitAlbum={submitAlbum}
       submitAlbumFromFile={submitAlbumFromFile}
       images={images}
+      isUploding={isUploading}
     />
   )
 }

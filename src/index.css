@@ -137,6 +137,7 @@ select {
   position: relative;
   margin: 14px 7px;
   float: left;
+  image-orientation: from-image;
 }
 
 .postForm__imagesarea__form__input {
@@ -156,6 +157,21 @@ select {
   color: #fff;
   font-size: 0.8em;
   transform: translateY(-50%);
+}
+
+.postForm__imagesarea__form__submit__span {
+  font-size: 1.5em;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .timelineItem__readMore {
@@ -220,6 +236,7 @@ select {
   -o-transition: -o-transform 0.1s linear;
   -ms-transition: -ms-transform 0.1s linear;
   transition: transform 0.1s linear;
+  image-orientation: from-image;
 }
 
 .post-image__img img:hover {
