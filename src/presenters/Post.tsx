@@ -19,16 +19,11 @@ export default ({ post }: { post: Post }) => {
     setZoom(true)
     setMoveX(
       100 -
-        ((e.clientX - e.currentTarget.x + e.currentTarget.width / 2) /
+        ((e.clientX - e.currentTarget.offsetLeft + e.currentTarget.width / 2) /
           e.currentTarget.width) *
           100
     )
-    setMoveY(
-      100 -
-        ((e.clientY - e.currentTarget.y + e.currentTarget.height / 2) /
-          e.currentTarget.height) *
-          100
-    )
+    setMoveY(98 - (e.clientY / e.currentTarget.height) * 100)
   }
   return (
     <div className="post">
@@ -100,13 +95,15 @@ export default ({ post }: { post: Post }) => {
           <React.Fragment key={file.id}>
             <div className="post-image__img">
               <picture>
-                {file.variants.map(variant => (
-                  <source
-                    key={variant.id}
-                    srcSet={variant.url}
-                    type={variant.mime}
-                  />
-                ))}
+                {file.variants
+                  .filter(variant => variant.type == 'image')
+                  .map(variant => (
+                    <source
+                      key={variant.id}
+                      srcSet={variant.url}
+                      type={variant.mime}
+                    />
+                  ))}
                 <img
                   style={{
                     transform: `translate(${zoom ? moveX : '0'}%, ${
