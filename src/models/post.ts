@@ -130,7 +130,21 @@ export class AlbumFileVariant {
   type: string
   url: string
 
-  constructor(filevariant: any) {
+  private validate(filevariant: any) {
+    return $.obj({
+      extension: $.string,
+      id: $.num,
+      mime: $.str,
+      score: $.num,
+      size: $.num,
+      type: $.str,
+      url: $.str
+    }).throw(filevariant)
+  }
+
+  constructor(f: any) {
+    const filevariant = this.validate(f)
+
     this.extension = filevariant.extension
     this.id = filevariant.id
     this.mime = filevariant.mime
@@ -158,12 +172,22 @@ export class AlbumFile {
   name: string
   variants: AlbumFileVariant[]
 
-  constructor(file: any) {
+  private validate(file: any) {
+    return $.obj({
+      id: $.num,
+      name: $.str,
+      variants: $.any
+    }).throw(file)
+  }
+
+  constructor(f: any) {
+    const file = this.validate(f)
+
     this.id = file.id
     this.name = file.name
     this.variants = file.variants
-      .map(filevariant => new AlbumFileVariant(filevariant))
-      .sort(filevariant => filevariant.score)
+      .map((filevariant: any) => new AlbumFileVariant(filevariant))
+      .sort((filevariant: any) => filevariant.score)
   }
 
   unpack() {
@@ -214,7 +238,7 @@ export default class Post implements Model {
     this.updatedAt = moment(post.updatedAt)
     this.application = app
     this.author = account
-    this.files = post.files.map(file => new AlbumFile(file))
+    this.files = post.files.map((file: any) => new AlbumFile(file))
   }
 
   unpack() {
