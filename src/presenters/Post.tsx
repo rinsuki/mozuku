@@ -69,6 +69,15 @@ export default ({ post }: { post: Post }) => (
           )}
         </React.Fragment>
       ))}
+      {post.files.map(file => (
+        <React.Fragment key={file.id}>
+          <a href={file.variant.url} target="_blank" rel="noreferrer">
+            <div className="post-image__img">
+              <img src={file.variant.url} />
+            </div>
+          </a>
+        </React.Fragment>
+      ))}
     </div>
     <div className="post__meta">via {post.application.name}</div>
   </div>

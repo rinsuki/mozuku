@@ -69,6 +69,7 @@ export const markImageURLmiddleware = (p: PostBodyPart): PostBodyPart[] => {
   // not whitelisted domain
   if (
     ![
+      'c.contents.stream',
       'delta.contents.stream',
       'i.gyazo.com',
       'i.imgur.com',
@@ -120,6 +121,62 @@ export class PostBody {
   }
 }
 
+export class FileVariant {
+  extension: string
+  id: number
+  mime: string
+  score: number
+  size: number
+  type: string
+  url: string
+
+  constructor(filevariant: any) {
+    this.extension = filevariant.extension
+    this.id = filevariant.id
+    this.mime = filevariant.mime
+    this.score = filevariant.score
+    this.size = filevariant.size
+    this.type = filevariant.size
+    this.url = filevariant.url
+  }
+
+  unpack() {
+    return {
+      extension: this.extension,
+      id: this.id,
+      mime: this.mime,
+      score: this.score,
+      size: this.size,
+      type: this.type,
+      url: this.url
+    }
+  }
+}
+
+export class File {
+  id: number
+  name: string
+  variants: FileVariant[]
+  variant: FileVariant
+
+  constructor(file: any) {
+    this.id = file.id
+    this.name = file.name
+    this.variants = file.variants.map(
+      filevariant => new FileVariant(filevariant)
+    )
+    this.variant = this.variants.sort(variant => variant.score)[0]
+  }
+
+  unpack() {
+    return {
+      id: this.id,
+      name: this.name,
+      variants: this.variants
+    }
+  }
+}
+
 export default class Post implements Model {
   id: number
   text: string
@@ -129,6 +186,7 @@ export default class Post implements Model {
   body: PostBody
   application: Application
   author: Account
+  files: File[]
 
   private validate(post: any) {
     return $.obj({
@@ -137,7 +195,8 @@ export default class Post implements Model {
       createdAt: validateDate,
       updatedAt: validateDate,
       user: $.any,
-      application: $.any
+      application: $.any,
+      files: $.any
     }).throw(post)
   }
 
@@ -157,6 +216,7 @@ export default class Post implements Model {
     this.updatedAt = moment(post.updatedAt)
     this.application = app
     this.author = account
+    this.files = post.files.map(file => new File(file))
   }
 
   unpack() {
@@ -166,7 +226,8 @@ export default class Post implements Model {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       user: this.author.unpack(),
-      application: this.application.unpack()
+      application: this.application.unpack(),
+      files: this.files.map(file => file.unpack())
     }
   }
 }
