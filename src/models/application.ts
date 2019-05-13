@@ -9,9 +9,7 @@ export default class Application implements Model {
     return $.obj({
       id: $.num,
       name: $.str
-    })
-      .strict()
-      .throw(app)
+    }).throw(app)
   }
 
   constructor(a: any) {

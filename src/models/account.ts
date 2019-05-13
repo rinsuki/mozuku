@@ -18,9 +18,7 @@ export default class Account implements Model {
       postsCount: $.num,
       createdAt: validateDate,
       updatedAt: validateDate
-    })
-      .strict()
-      .throw(user)
+    }).throw(user)
   }
 
   constructor(u: any) {

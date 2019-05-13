@@ -138,9 +138,7 @@ export default class Post implements Model {
       updatedAt: validateDate,
       user: $.any,
       application: $.any
-    })
-      .strict()
-      .throw(post)
+    }).throw(post)
   }
 
   constructor(p: any) {

@@ -68,9 +68,7 @@ export class SeaClient {
         return $.obj({
           token_type: $.str,
           access_token: $.str
-        })
-          .strict()
-          .throw(r)
+        }).throw(r)
       })
     this.token = token.access_token
     this.tokenType = token.token_type
