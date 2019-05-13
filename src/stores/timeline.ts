@@ -9,6 +9,8 @@ import app from './app'
 
 import seaClient from '../util/seaClient'
 
+import postSoundFile from '../static/post.mp3'
+
 class TimelineStore {
   @observable ids: number[] = []
   @observable private unreadCount: number = 0
@@ -166,6 +168,7 @@ class TimelineStore {
     this.streamLastPingFromServer = new Date()
     // internal state
     this.stream = stream
+    const postSound = new Audio(postSoundFile)
 
     stream.addEventListener('message', ev => {
       try {
@@ -174,6 +177,9 @@ class TimelineStore {
           message: $.optional.str,
           content: $.optional.obj({})
         }).throw(JSON.parse(ev.data))
+        if (m.type == 'message') {
+          postSound.play()
+        }
         if (m.type === 'success') return
         if (m.type === 'error') throw new Error(m.message)
         if (m.type === 'ping') {
