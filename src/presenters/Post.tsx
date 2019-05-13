@@ -1,7 +1,5 @@
 import * as React from 'react'
 import moment from 'moment-timezone'
-import axios from 'axios'
-import Config from '../config'
 const { useState } = React
 
 import {
@@ -91,31 +89,32 @@ export default ({ post }: { post: Post }) => {
         ))}
         {post.files.map(file => (
           <React.Fragment key={file.id}>
-            <a href={file.variants[0].url} target="_blank" rel="noreferrer">
-              <div className="post-image__img">
-                <picture>
-                  {file.variants.map(variant => (
-                    <source
-                      key={variant.id}
-                      srcSet={variant.url}
-                      type={variant.mime}
-                    />
-                  ))}
-                  <img
-                    style={{
-                      transform: `translate(${zoom ? moveX : '0'}%, ${
-                        zoom ? moveY : '0'
-                      }%) scale(${zoom ? '2' : '1'})`
-                    }}
-                    src={file.variants[0].url}
-                    title={file.name}
-                    onClick={() => setZoom(false)}
-                    onMouseLeave={() => setZoom(false)}
-                    onMouseMove={e => setXY(e)}
+            <div className="post-image__img">
+              <picture>
+                {file.variants.map(variant => (
+                  <source
+                    key={variant.id}
+                    srcSet={variant.url}
+                    type={variant.mime}
                   />
-                </picture>
-              </div>
-            </a>
+                ))}
+                <img
+                  style={{
+                    transform: `translate(${zoom ? moveX : '0'}%, ${
+                      zoom ? moveY : '0'
+                    }%) scale(${zoom ? '2' : '1'})`
+                  }}
+                  src={file.variants[0].url}
+                  title={file.name}
+                  onClick={e => {
+                    setZoom(false)
+                    window.open(e.currentTarget.src, '_blank')
+                  }}
+                  onMouseLeave={() => setZoom(false)}
+                  onMouseMove={e => setXY(e)}
+                />
+              </picture>
+            </div>
           </React.Fragment>
         ))}
       </div>

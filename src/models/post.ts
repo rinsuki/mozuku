@@ -136,7 +136,7 @@ export class AlbumFileVariant {
     this.mime = filevariant.mime
     this.score = filevariant.score
     this.size = filevariant.size
-    this.type = filevariant.size
+    this.type = filevariant.type
     this.url = filevariant.url
   }
 
@@ -184,7 +184,7 @@ export default class Post implements Model {
   body: PostBody
   application: Application
   author: Account
-  files: File[]
+  files: AlbumFile[]
 
   private validate(post: any) {
     return $.obj({

@@ -1,5 +1,6 @@
 import * as React from 'react'
 const { forwardRef } = React
+import { AlbumFile } from '../../models/post'
 
 type T = {
   draftDisabled: boolean
@@ -8,7 +9,7 @@ type T = {
   draft: string
   submitAlbum: (e: React.ClipboardEvent) => void
   submitAlbumFromFile: (e: React.ChangeEvent<HTMLInputElement>) => void
-  images: string[]
+  images: AlbumFile[]
   isUploding: boolean
 }
 export default forwardRef<HTMLTextAreaElement, T>(
@@ -91,13 +92,15 @@ export default forwardRef<HTMLTextAreaElement, T>(
           <div className="postForm__images-area__collection">
             {images.map(image => (
               <picture key={image.id}>
-                {image.variants.map(variant => (
-                  <source
-                    key={variant.id}
-                    srcSet={variant.url}
-                    type={variant.type}
-                  />
-                )}
+                {image.variants
+                  .filter(variant => variant.type == 'thumbnail')
+                  .map(variant => (
+                    <source
+                      key={variant.id}
+                      srcSet={variant.url}
+                      type={variant.type}
+                    />
+                  ))}
                 <img src={image.variants[0].url} />
               </picture>
             ))}
