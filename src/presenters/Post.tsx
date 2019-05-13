@@ -14,12 +14,12 @@ import {
 export default ({ post }: { post: Post }) => {
   const [moveX, setMoveX] = useState(0)
   const [moveY, setMoveY] = useState(0)
+  const [zoom, setZoom] = useState(false)
   const setXY = (xzoom: number, yzoom: number) => {
     setZoom(true)
     setMoveX(xzoom)
     setMoveY(yzoom)
   }
-  const [zoom, setZoom] = useState(false)
   return (
     <div className="post">
       <div className="post__head post-head">
@@ -105,14 +105,18 @@ export default ({ post }: { post: Post }) => {
                     onMouseMove={e =>
                       setXY(
                         100 -
-                          ((e.clientX - e.currentTarget.x) /
+                          ((e.clientX -
+                            e.currentTarget.x +
+                            e.currentTarget.width / 2) /
                             e.currentTarget.width) *
-                            80,
+                            100,
 
                         100 -
-                          ((e.clientY - e.currentTarget.y) /
+                          ((e.clientY -
+                            e.currentTarget.y +
+                            e.currentTarget.height / 2) /
                             e.currentTarget.height) *
-                            80
+                            100
                       )
                     }
                   />
