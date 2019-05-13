@@ -71,9 +71,9 @@ export default ({ post }: { post: Post }) => (
       ))}
       {post.files.map(file => (
         <React.Fragment key={file.id}>
-          <a href={file.variant.url} target="_blank" rel="noreferrer">
+          <a href={file.variants[0].url} target="_blank" rel="noreferrer">
             <div className="post-image__img">
-              <img src={file.variant.url} />
+              <img src={file.variants[0].url} />
             </div>
           </a>
         </React.Fragment>

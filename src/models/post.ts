@@ -157,15 +157,13 @@ export class File {
   id: number
   name: string
   variants: FileVariant[]
-  variant: FileVariant
 
   constructor(file: any) {
     this.id = file.id
     this.name = file.name
-    this.variants = file.variants.map(
-      filevariant => new FileVariant(filevariant)
-    )
-    this.variant = this.variants.sort(variant => variant.score)[0]
+    this.variants = file.variants
+      .map(filevariant => new FileVariant(filevariant))
+      .sort(filevariant => filevariant.score)
   }
 
   unpack() {
