@@ -53,7 +53,7 @@ export default ({ post }: { post: Post }) => {
         <div className="post-head__time">
           {moment(post.createdAt)
             .tz('Asia/Tokyo')
-            .format('HH:mm:ss · D MMM YYYY')}
+            .format('HH:mm:ss・MM/DD')}
         </div>
       </div>
       <div className="post__body">
