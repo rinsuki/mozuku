@@ -98,10 +98,10 @@ export default forwardRef<HTMLTextAreaElement, T>(
                     <source
                       key={variant.id}
                       srcSet={variant.url}
-                      type={variant.type}
+                      type={variant.mime}
                     />
                   ))}
-                <img src={image.variants[0].url} />
+                <img title={image.name} />
               </picture>
             ))}
           </div>

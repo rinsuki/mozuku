@@ -104,11 +104,10 @@ export default ({ post }: { post: Post }) => {
                       zoom ? moveY : '0'
                     }%) scale(${zoom ? '2' : '1'})`
                   }}
-                  src={file.variants[0].url}
                   title={file.name}
                   onClick={e => {
                     setZoom(false)
-                    window.open(e.currentTarget.src, '_blank')
+                    window.open(e.currentTarget.currentSrc, '_blank')
                   }}
                   onMouseLeave={() => setZoom(false)}
                   onMouseMove={e => setXY(e)}
