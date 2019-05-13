@@ -26,9 +26,6 @@ export default () => {
   const [draftDisabled, setDraftDisabled] = useState(false)
   const [images, setImages] = useState([] as AlbumFile[])
   const [isUploading, setIsUploading] = useState(false)
-  const joinImages = () => {
-    return `${draft} ${images.join(' ')}`
-  }
   const submitDraft = async () => {
     setDraftDisabled(true)
     if (draft.trim().length > 0 || images.length >= 1) {
@@ -57,6 +54,7 @@ export default () => {
           const form = new FormData()
           form.append('file', compressed)
           form.append('name', compressed.name)
+          form.append('ifNameConflicted', 'add-date-string')
           seaClient
             .post('/v1/album/files', form)
             .then(file => {
