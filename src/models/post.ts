@@ -91,6 +91,43 @@ const presetMiddlewares: PostBodyMiddleware[] = [
   markImageURLmiddleware
 ]
 
+export class OGP {
+  title: string
+  canonical: string
+  type: string
+  icon: string | undefined
+  lang: string | undefined
+  image: string | undefined
+  description: string | undefined
+  site_name: string | undefined
+
+  private validate(ogp: any) {
+    return $.obj({
+      title: $.str,
+      canonical: $.str,
+      type: $.str,
+      icon: $.optional.str,
+      lang: $.optional.str,
+      image: $.optional.str,
+      description: $.optional.str,
+      site_name: $.optional.str
+    }).throw(ogp)
+  }
+
+  constructor(g: any) {
+    const ogp = this.validate(g)
+
+    this.title = ogp.title
+    this.canonical = ogp.canonical
+    this.type = ogp.type
+    this.icon = ogp.icon
+    this.lang = ogp.lang
+    this.image = ogp.image
+    this.description = ogp.description
+    this.site_name = ogp.site_name
+  }
+}
+
 export class PostBody {
   parts = [] as PostBodyPart[]
   processed = false

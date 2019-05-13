@@ -239,6 +239,59 @@ select {
   image-orientation: from-image;
 }
 
+.post__ogp {
+  margin: 6px;
+  padding: 6px calc(120px + 24px + 24px) 6px 12px;
+  border: solid 2px var(--color-base);
+  overflow: hidden;
+  display: inline-flex;
+  width: 100%;
+}
+
+.post__ogp img {
+  margin: auto;
+}
+
+.post__ogp a {
+  text-decoration: none;
+  padding: 6px;
+}
+
+.post__ogp__img {
+  height: 72px;
+  margin: 0 6px 0 0;
+}
+
+.post__ogp__info__title {
+  font-size: 1.1em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--color-text);
+}
+
+.post__ogp__info__link {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+}
+
+.post__ogp__info__description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--color-text);
+}
+
+.post__ogp__info__author {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
+  color: var(--color-text);
+}
+
 .post__meta {
   margin: 4px 0 0;
   color: #999;

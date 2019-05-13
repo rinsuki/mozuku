@@ -2,6 +2,8 @@ import * as React from 'react'
 import moment from 'moment-timezone'
 const { useState } = React
 
+import OGP from './OGP'
+
 import {
   Post,
   BODYPART_TYPE_LINK,
@@ -75,6 +77,13 @@ export default ({ post }: { post: Post }) => {
           }
         })}
       </div>
+      {post.body.parts
+        .filter(p => p.type == BODYPART_TYPE_LINK)
+        .map((p, i) => (
+          <React.Fragment key={i}>
+            <OGP link={p.payload} />
+          </React.Fragment>
+        ))}
       <div className="post__image">
         {post.body.parts.map((p, i) => (
           <React.Fragment key={i}>
