@@ -81,7 +81,7 @@ export default ({ post }: { post: Post }) => (
                     type={variant.mime}
                   />
                 ))}
-                <img src={file.variants[0].url} />
+                <img src={file.variants[0].url} title={file.name} />
               </picture>
             </div>
           </a>
