@@ -23,7 +23,12 @@ export default ({ post }: { post: Post }) => {
           e.currentTarget.width) *
           100
     )
-    setMoveY(98 - (e.clientY / e.currentTarget.height) * 100)
+    setMoveY(
+      100 -
+        ((e.pageY - e.currentTarget.offsetTop + e.currentTarget.height / 2) /
+          e.currentTarget.height) *
+          100
+    )
   }
   return (
     <div className="post">
