@@ -102,6 +102,7 @@ export default ({ post }: { post: Post }) => {
               <picture>
                 {file.variants
                   .filter(variant => variant.type == 'image')
+                  .sort((a,b) => b.score - a.score)
                   .map(variant => (
                     <source
                       key={variant.id}
