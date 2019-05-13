@@ -14,20 +14,21 @@ import {
 export default ({ post }: { post: Post }) => {
   const [moveX, setMoveX] = useState(0)
   const [moveY, setMoveY] = useState(0)
-  const [zoom, setZoom] = useState(false)
+  const [zoom, setZoom] = useState(1)
   const setXY = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    setZoom(true)
+    const rect = e.currentTarget.parentElement!.parentElement!.getBoundingClientRect()
+    setZoom(2)
     setMoveX(
-      100 -
-        ((e.clientX - e.currentTarget.x + e.currentTarget.width / 2) /
+      120 -
+        ((e.clientX - rect.left + e.currentTarget.width / 2) /
           e.currentTarget.width) *
-          100
+          120
     )
     setMoveY(
-      100 -
-        ((e.clientY - e.currentTarget.y + e.currentTarget.height / 2) /
+      120 -
+        ((e.clientY - rect.top + e.currentTarget.height / 2) /
           e.currentTarget.height) *
-          100
+          120
     )
   }
   return (
@@ -98,9 +99,9 @@ export default ({ post }: { post: Post }) => {
         ))}
         {post.files.map(file => (
           <React.Fragment key={file.id}>
-            <div className="post-image__img">
+            <span className="post-image__img">
               <picture>
-                {file.variants.map(variant => (
+                {file.variants.filter(v => v.type === "image").sort((a, b) => a.score - b.score).map(variant => (
                   <source
                     key={variant.id}
                     srcSet={variant.url}
@@ -109,20 +110,20 @@ export default ({ post }: { post: Post }) => {
                 ))}
                 <img
                   style={{
-                    transform: `translate(${zoom ? moveX : '0'}%, ${
-                      zoom ? moveY : '0'
-                    }%) scale(${zoom ? '2' : '1'})`
+                    transform: `translate(${zoom !== 1 ? Math.min(Math.max(moveX, -50), 50) : '0'}%, ${
+                      zoom !== 1? Math.min(Math.max(moveY, -50), 50) : '0'
+                    }%) scale(${zoom})`
                   }}
                   title={file.name}
                   onClick={e => {
-                    setZoom(false)
+                    setZoom(1)
                     window.open(e.currentTarget.currentSrc, '_blank')
                   }}
-                  onMouseLeave={() => setZoom(false)}
+                  onMouseLeave={() => setZoom(1)}
                   onMouseMove={e => setXY(e)}
                 />
               </picture>
-            </div>
+            </span>
           </React.Fragment>
         ))}
       </div>
