@@ -15,10 +15,20 @@ export default ({ post }: { post: Post }) => {
   const [moveX, setMoveX] = useState(0)
   const [moveY, setMoveY] = useState(0)
   const [zoom, setZoom] = useState(false)
-  const setXY = (xzoom: number, yzoom: number) => {
+  const setXY = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     setZoom(true)
-    setMoveX(xzoom)
-    setMoveY(yzoom)
+    setMoveX(
+      100 -
+        ((e.clientX - e.currentTarget.x + e.currentTarget.width / 2) /
+          e.currentTarget.width) *
+          100
+    )
+    setMoveY(
+      100 -
+        ((e.clientY - e.currentTarget.y + e.currentTarget.height / 2) /
+          e.currentTarget.height) *
+          100
+    )
   }
   return (
     <div className="post">
@@ -99,26 +109,9 @@ export default ({ post }: { post: Post }) => {
                     }}
                     src={file.variants[0].url}
                     title={file.name}
-                    onMouseLeave={e => {
-                      setZoom(false)
-                    }}
-                    onMouseMove={e =>
-                      setXY(
-                        100 -
-                          ((e.clientX -
-                            e.currentTarget.x +
-                            e.currentTarget.width / 2) /
-                            e.currentTarget.width) *
-                            100,
-
-                        100 -
-                          ((e.clientY -
-                            e.currentTarget.y +
-                            e.currentTarget.height / 2) /
-                            e.currentTarget.height) *
-                            100
-                      )
-                    }
+                    onClick={() => setZoom(false)}
+                    onMouseLeave={() => setZoom(false)}
+                    onMouseMove={e => setXY(e)}
                   />
                 </picture>
               </div>
