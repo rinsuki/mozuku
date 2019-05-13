@@ -231,20 +231,20 @@ select {
 .post-image__img img {
   max-height: 256px;
   max-width: 100%;
-  -moz-transition: -moz-transform 0.1s linear;
-  -webkit-transition: -webkit-transform 0.1s linear;
-  -o-transition: -o-transform 0.1s linear;
-  -ms-transition: -ms-transform 0.1s linear;
-  transition: transform 0.1s linear;
+  -moz-transition: -moz-transform 0.1s ease;
+  -webkit-transition: -webkit-transform 0.1s ease;
+  -o-transition: -o-transform 0.1s ease;
+  -ms-transition: -ms-transform 0.1s ease;
+  transition: transform 0.1s ease;
   image-orientation: from-image;
 }
 
 .post-image__img img:hover {
-  -webkit-transform: scale(2);
-  -moz-transform: scale(2);
-  -o-transform: scale(2);
-  -ms-transform: scale(2);
-  transform: scale(2);
+  -webkit-transform: scale(3);
+  -moz-transform: scale(3);
+  -o-transform: scale(3);
+  -ms-transform: scale(3);
+  transform: scale(3);
 }
 
 .post__meta {
