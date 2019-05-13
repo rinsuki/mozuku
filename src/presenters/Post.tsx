@@ -73,7 +73,16 @@ export default ({ post }: { post: Post }) => (
         <React.Fragment key={file.id}>
           <a href={file.variants[0].url} target="_blank" rel="noreferrer">
             <div className="post-image__img">
-              <img src={file.variants[0].url} />
+              <picture>
+                {file.variants.map(variant => (
+                  <source
+                    key={variant.id}
+                    srcSet={variant.url}
+                    type={variant.mime}
+                  />
+                ))}
+                <img src={file.variants[0].url} />
+              </picture>
             </div>
           </a>
         </React.Fragment>

@@ -10,6 +10,7 @@ import axios from 'axios'
 import Config from '../../config'
 import PostForm from '../../presenters/Home/PostForm'
 import { setServers } from 'dns'
+import { AlbumFile } from '../../models/post'
 
 export default () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -23,7 +24,7 @@ export default () => {
 
   const [draft, setDraft] = useState('')
   const [draftDisabled, setDraftDisabled] = useState(false)
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([] as AlbumFile[])
   const [isUploading, setIsUploading] = useState(false)
   const joinImages = () => {
     return `${draft} ${images.join(' ')}`
@@ -32,7 +33,10 @@ export default () => {
     setDraftDisabled(true)
     if (draft.trim().length > 0 || images.length >= 1) {
       try {
-        await seaClient.post('/v1/posts', { text: joinImages() })
+        await seaClient.post('/v1/posts', {
+          text: draft,
+          fileIds: images.map(image => image.id)
+        })
         setDraft('')
         setImages([])
       } catch (e) {
@@ -49,45 +53,26 @@ export default () => {
       if (reader.result != null) {
         const blob = new Blob([new Uint8Array(reader.result)])
         Ahdin.compress(blob).then(comp => {
-          const creader = new FileReader()
-          creader.onloadend = () => {
-            axios
-              .post(
-                '/imgur/upload',
-                querystring.stringify({
-                  image: creader.result.toString().split(',')[1],
-                  type: 'base64'
-                }),
-                {
-                  headers: {
-                    Authorization: `Client-ID ${Config.imgur_client_id}`,
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                  }
-                }
-              )
-              .then(resp => {
-                setImages([...images, resp.data.data.link])
-                localStorage.setItem(
-                  `imgur_${resp.data.data.id}`,
-                  JSON.stringify(resp.data.data)
-                )
-                setIsUploading(false)
-              })
-              .catch(err => {
-                console.error(err)
-                setIsUploading(false)
-              })
-          }
-          creader.readAsDataURL(comp)
+          const compressed = new File([comp], file.name)
+          const form = new FormData()
+          form.append('file', compressed)
+          form.append('name', compressed.name)
+          seaClient
+            .post('/v1/album/files', form)
+            .then(file => {
+              setImages(images => [...images, file])
+              setIsUploading(false)
+            })
+            .catch(err => {
+              console.error(err)
+              setIsUploading(false)
+            })
         })
       }
     }
     reader.readAsArrayBuffer(file)
   }
   const submitAlbum = async (event: React.ClipboardEvent) => {
-    if (!Config.imgur_client_id) {
-      return null
-    }
     if (event.clipboardData.getData('Text').includes('https://gyazo.com')) {
       event.preventDefault()
       axios

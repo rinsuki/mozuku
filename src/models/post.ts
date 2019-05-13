@@ -121,7 +121,7 @@ export class PostBody {
   }
 }
 
-export class FileVariant {
+export class AlbumFileVariant {
   extension: string
   id: number
   mime: string
@@ -153,16 +153,16 @@ export class FileVariant {
   }
 }
 
-export class File {
+export class AlbumFile {
   id: number
   name: string
-  variants: FileVariant[]
+  variants: AlbumFileVariant[]
 
   constructor(file: any) {
     this.id = file.id
     this.name = file.name
     this.variants = file.variants
-      .map(filevariant => new FileVariant(filevariant))
+      .map(filevariant => new AlbumFileVariant(filevariant))
       .sort(filevariant => filevariant.score)
   }
 
@@ -214,7 +214,7 @@ export default class Post implements Model {
     this.updatedAt = moment(post.updatedAt)
     this.application = app
     this.author = account
-    this.files = post.files.map(file => new File(file))
+    this.files = post.files.map(file => new AlbumFile(file))
   }
 
   unpack() {

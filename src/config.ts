@@ -13,9 +13,6 @@ export default {
   },
   oauth: process.env.OAUTH_URL,
   api: process.env.API_URL,
-  imgur_client_id: process.env.REPOSITORY_URL
-    ? process.env.IMGUR_CLIENT_ID
-    : null,
   repository_url: process.env.REPOSITORY_URL
     ? process.env.REPOSITORY_URL.split('@')[1]
     : null,

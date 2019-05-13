@@ -59,7 +59,6 @@ export default ({
           )}
         </li>
         <li>Commit: {Config.commit || 'unknown'}</li>
-        <li>Imgur: {Config.imgur_client_id ? 'ready!' : 'not configured'}</li>
       </ul>
     </div>
   )

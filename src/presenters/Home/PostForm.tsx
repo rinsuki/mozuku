@@ -90,7 +90,16 @@ export default forwardRef<HTMLTextAreaElement, T>(
 
           <div className="postForm__images-area__collection">
             {images.map(image => (
-              <img key={image} src={image} />
+              <picture key={image.id}>
+                {image.variants.map(variant => (
+                  <source
+                    key={variant.id}
+                    srcSet={variant.url}
+                    type={variant.type}
+                  />
+                )}
+                <img src={image.variants[0].url} />
+              </picture>
             ))}
           </div>
         </div>
